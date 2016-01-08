@@ -1,7 +1,7 @@
 Role Name
 =========
 
-OU Libraries Drupal Ops.
+OU Libraries MariaDB Server.
 
 Requirements
 ------------

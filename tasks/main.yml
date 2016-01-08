@@ -3,5 +3,3 @@
   sudo: yes
 - include: configure.yml
   sudo: yes
-- include: ssl-selfsign.yml
-  sudo: yes
