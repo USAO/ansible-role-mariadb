@@ -1,5 +1,5 @@
 ---
 - include: install.yml
-  sudo: yes
+  become: true
 - include: configure.yml
-  sudo: yes
+  become: true
