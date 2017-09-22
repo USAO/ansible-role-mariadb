@@ -1,4 +1,5 @@
 ---
+
 - name: MariaDB - max allowed packet
   ini_file:
     dest: /etc/my.cnf
@@ -6,6 +7,7 @@
     option: max_allowed_packet
     value: 24M
     backup: yes
+
 - name: MariaDB - max connections
   ini_file:
     dest: /etc/my.cnf
@@ -13,21 +15,50 @@
     option: max_connections
     value: 500
     backup: yes
+
+- name: MariaDB - innodb_file_per_table
+  ini_file:
+    dest: /etc/my.cnf
+    section: mysqld
+    option: innodb_file_per_table
+    value: 1
+    backup: yes
+    
+- name: MariaDB - innodb_large_prefix
+  ini_file:
+    dest: /etc/my.cnf
+    section: mysqld
+    option: innodb_large_prefix
+    value: 1
+    backup: yes
+
+- name: MariaDB - innodb_file_format
+  ini_file:
+    dest: /etc/my.cnf
+    section: mysqld
+    option: innodb_file_format
+    value: Barracuda
+    backup: yes
+
 - name: Start database server on boot
   service:
     name: mariadb
     state: started
     enabled: yes
+
 # Equivilant to mysql_secure_installation
 - name: delete anonymous MySQL server user for *
   action: mysql_user user="" host="*" state="absent"
   ignore_errors: yes
+
 - name: delete anonymous MySQL server user for localhost
   action: mysql_user user="" state="absent"
   ignore_errors: yes
+
 - name: remove the MySQL test database
   action: mysql_db db=test state=absent
   ignore_errors: yes
+
 # 'localhost' needs to be the last item for idempotency, see
 # http://ansible.cc/docs/modules.html#mysql-user  
 - name: Change root user password on first run
